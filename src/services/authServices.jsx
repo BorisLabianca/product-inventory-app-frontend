@@ -28,3 +28,22 @@ export const registerUser = async (userData) => {
     toast.error(message);
   }
 };
+
+export const loginUser = async (userData) => {
+  try {
+    const response = await axios.post(
+      `${SERVER_URL}/api/users/login`,
+      userData
+    );
+    if (response.statusText === "OK") {
+      toast.success("User logged in successfully.");
+    }
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};

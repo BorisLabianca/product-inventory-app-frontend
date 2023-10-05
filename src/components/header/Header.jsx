@@ -11,6 +11,7 @@ const Header = () => {
   const logout = async () => {
     await logoutUser();
     await dispatch(setLogin(false));
+    localStorage.removeItem("name");
     navigate("/login");
   };
 

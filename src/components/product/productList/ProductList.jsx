@@ -2,8 +2,19 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { SpinnerImg } from "../../loader/Loader";
 import "./ProductList.scss";
 import { AiOutlineEye } from "react-icons/ai";
+import Search from "../../search/Search";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  filterProducts,
+  selectFilteredProducts,
+} from "../../../redux/features/product/filterSlice";
 
 const ProductList = ({ products, isLoading }) => {
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
+  const filteredProducts = useSelector(selectFilteredProducts);
+
   const shortenText = (text, n) => {
     if (text.length > n) {
       const shortenedText = text.substring(0, n).concat("...");
@@ -11,6 +22,10 @@ const ProductList = ({ products, isLoading }) => {
     }
     return text;
   };
+
+  useEffect(() => {
+    dispatch(filterProducts({ products, search }));
+  }, [products, search]);
 
   return (
     <div className="product-list">
@@ -21,7 +36,10 @@ const ProductList = ({ products, isLoading }) => {
             <h3>Inventory Items</h3>
           </span>
           <span>
-            <input type="text" placeholder="Search products" />
+            <Search
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
           </span>
         </div>
         {isLoading && <SpinnerImg />}
@@ -42,7 +60,7 @@ const ProductList = ({ products, isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product, index) => {
+                {filteredProducts.map((product, index) => {
                   const {
                     _id,
                     name,

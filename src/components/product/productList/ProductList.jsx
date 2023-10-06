@@ -16,6 +16,7 @@ import {
   deleteProduct,
   getProducts,
 } from "../../../redux/features/product/productSlice";
+import { Link } from "react-router-dom";
 
 const ProductList = ({ products, isLoading }) => {
   const dispatch = useDispatch();
@@ -126,15 +127,21 @@ const ProductList = ({ products, isLoading }) => {
                       <td>{quantity}</td>
                       <td>$ {price * quantity}</td>
                       <td className="icons">
-                        <AiOutlineEye color="purple" size={25} />
-                        <FaEdit color="green" size={20} />
-                        <FaTrashAlt
-                          color="red"
-                          size={20}
-                          onClick={() => {
-                            confirmDelete(_id);
-                          }}
-                        />
+                        <Link to={`/product-details/${_id}`}>
+                          <AiOutlineEye color="purple" size={25} />
+                        </Link>
+                        <Link to={`/edit-product/${_id}`}>
+                          <FaEdit color="green" size={20} />
+                        </Link>
+                        <span>
+                          <FaTrashAlt
+                            color="red"
+                            size={20}
+                            onClick={() => {
+                              confirmDelete(_id);
+                            }}
+                          />
+                        </span>
                       </td>
                     </tr>
                   );

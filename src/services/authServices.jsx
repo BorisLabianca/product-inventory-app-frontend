@@ -104,3 +104,32 @@ export const getLoginStatus = async () => {
     toast.error(message);
   }
 };
+
+export const getUserProfile = async () => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/users/get-user`);
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};
+
+export const updateUserProfile = async (formData) => {
+  try {
+    const response = await axios.patch(
+      `${SERVER_URL}/api/users/update-user`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};

@@ -4,3 +4,8 @@
   box-shadow: var(--box-shadow);
   overflow: hidden;
 }
+.centerCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

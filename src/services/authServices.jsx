@@ -133,3 +133,19 @@ export const updateUserProfile = async (formData) => {
     toast.error(message);
   }
 };
+
+export const changePassword = async (formData) => {
+  try {
+    const response = await axios.patch(
+      `${SERVER_URL}/api/users/change-password`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};
